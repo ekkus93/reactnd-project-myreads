@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchPage from './components/SearchPage'
@@ -7,14 +8,7 @@ import {validShelves} from './components/BookshelfChanger'
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false,
-    searchStr: "",
+    query: '',
     searchBooks: [],
     bookCollection: {
       currentlyReading: [],
@@ -23,13 +17,12 @@ class BooksApp extends React.Component {
     },
   }
 
-  handleCloseSearchPage = () => this.setState({
-    showSearchPage: false,
-    searchStr: "",
-    searchBooks: [],
-  })
-
-  handleAddBook = () => this.setState({ showSearchPage: true });
+  clearSearch = (callback) => {
+    this.setState({
+      query: '',
+      searchBooks: [],
+    }, callback);
+  }
 
   getCurrentBookShelf = (id) => {
     const bookCollectionKeys = validShelves.filter(shelf => shelf !== 'none');
@@ -47,15 +40,15 @@ class BooksApp extends React.Component {
     return "none";
   }
 
-  updateSearchStr = (searchStr, callback) => {
-    this.setState({searchStr}, callback);
+  updateQuery = (query, callback) => {
+    this.setState({query}, callback);
   }
 
   handleSearchBooks = (event) => {
-    const searchStr = event.target.value;
+    const query = event.target.value;
 
     const updateSearchBooks = () => {
-      BooksAPI.search(searchStr).then(books => {
+      BooksAPI.search(query).then(books => {
         this.setState((state, props) => {
           let updatedBooks = books;
 
@@ -79,7 +72,7 @@ class BooksApp extends React.Component {
             }
           }
 
-          console.log("###handleSearchBooks - searchStr: ", this.state.searchStr);
+          console.log("###handleSearchBooks - query: ", this.state.query);
           console.log("###handleSearchBooks - updatedBooks: ", updatedBooks);
 
           return {
@@ -89,17 +82,17 @@ class BooksApp extends React.Component {
       });
     }
 
-    // Set searchStr in state first then do the api call for the book search.
+    // Set query in state first then do the api call for the book search.
     // This will prevent lagging with typing in the search input.
-    this.updateSearchStr(searchStr, updateSearchBooks);
+    this.updateQuery(query, updateSearchBooks);
   }
 
-  handleBookChange = (id, shelf) => {
+  handleBookChange = (id, shelf, callback) => {
     const book = {
       id: id,
     };
 
-    BooksAPI.update(book, shelf).then(() => this.updateBookCollections(this.handleCloseSearchPage));
+    BooksAPI.update(book, shelf).then(() => this.updateBookCollections(callback));
   }
 
   updateBookCollections = (callback=null) => {
@@ -110,7 +103,9 @@ class BooksApp extends React.Component {
         read: allBooks.filter(book => book.shelf === 'read'),
       };
 
-      this.setState({bookCollection}, callback);
+      this.setState({
+        bookCollection: bookCollection
+      }, callback);
     });
   }
 
@@ -121,19 +116,22 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchPage
-            searchStr={this.state.searchStr}
-            books={this.state.searchBooks}
-            handleCloseSearchPage={this.handleCloseSearchPage}
-            handleSearchBooks={this.handleSearchBooks}
-            handleBookChange={this.handleBookChange}/>
-        ) : (
+        <Route exact path='/' render={() => (
           <ListBooks
             bookCollection={this.state.bookCollection}
-            handleAddBook={this.handleAddBook}
-            handleBookChange={this.handleBookChange}/>
-          )}
+            handleBookChange={this.handleBookChange}
+            clearSearch={this.clearSearch}
+          />
+        )} />
+
+        <Route path='/search' render={() => (
+          <SearchPage
+            query={this.state.query}
+            books={this.state.searchBooks}
+            handleSearchBooks={this.handleSearchBooks}
+            handleBookChange={this.handleBookChange}
+          />
+        )} />
       </div>
     )
   }

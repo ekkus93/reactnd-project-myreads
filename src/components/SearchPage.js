@@ -5,17 +5,18 @@ import '../App.css'
 
 class SearchPage extends Component {
   render() {
-    const { searchStr, books, handleCloseSearchPage, handleSearchBooks, handleBookChange } = this.props;
+    const { query, books, handleSearchBooks, handleBookChange } = this.props;
 
     return (
       <div className="search-books">
         <SearchBooksBar
-          searchStr={searchStr}
-          handleCloseSearchPage={handleCloseSearchPage}
-          handleSearchBooks={handleSearchBooks} />
+          query={query}
+          handleSearchBooks={handleSearchBooks}
+        />
         <SearchBookResults
           books={books}
-          handleBookChange={handleBookChange}/>
+          handleBookChange={handleBookChange}
+        />
       </div>
     );
   }

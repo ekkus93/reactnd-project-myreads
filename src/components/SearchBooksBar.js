@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import '../App.css'
 
 class SearchBooksBar extends Component {
     render() {
-        const { searchStr, handleCloseSearchPage, handleSearchBooks } = this.props;
+        const { query, handleSearchBooks } = this.props;
 
         return (
             <div className="search-books-bar">
-            <button className="close-search" onClick={handleCloseSearchPage}>Close</button>
+            <Link
+              to='/'
+              className="close-search"
+              >Close</Link>
             <div className="search-books-input-wrapper">
               {/*
                     NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -17,7 +21,7 @@ class SearchBooksBar extends Component {
                     However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                     you don't find a specific author or title. Every search is limited by search terms.
                   */}
-              <input type="text" placeholder="Search by title or author" value={searchStr} onChange={handleSearchBooks}/>
+              <input type="text" placeholder="Search by title or author" value={query} onChange={handleSearchBooks}/>
             </div>
           </div>
         );

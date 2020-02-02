@@ -10,9 +10,24 @@ class ListBooksContent extends Component {
         return (
             <div className="list-books-content">
                 <div>
-                    <Bookshelf title="Currently Reading" shelf="currentlyReading" books={bookCollection['currentlyReading']} handleBookChange={handleBookChange}/>
-                    <Bookshelf title="Want to Read" shelf="wantToRead" books={bookCollection['wantToRead']} handleBookChange={handleBookChange}/>
-                    <Bookshelf title="Read" shelf="read" books={bookCollection['read']} handleBookChange={handleBookChange}/>
+                    <Bookshelf
+                        title="Currently Reading"
+                        shelf="currentlyReading"
+                        books={bookCollection['currentlyReading']}
+                        handleBookChange={handleBookChange}
+                    />
+                    <Bookshelf
+                        title="Want to Read"
+                        shelf="wantToRead"
+                        books={bookCollection['wantToRead']}
+                        handleBookChange={handleBookChange}
+                    />
+                    <Bookshelf
+                        title="Read"
+                        shelf="read"
+                        books={bookCollection['read']}
+                        handleBookChange={handleBookChange}
+                    />
                 </div>
             </div>
         );
