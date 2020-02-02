@@ -47,41 +47,51 @@ class BooksApp extends React.Component {
     return "none";
   }
 
+  updateSearchStr = (searchStr, callback) => {
+    this.setState({searchStr}, callback);
+  }
+
   handleSearchBooks = (event) => {
     const searchStr = event.target.value;
 
-    BooksAPI.search(searchStr).then(books => {
-      this.setState((state, props) => {
-        let updatedBooks = books;
+    const updateSearchBooks = () => {
+      BooksAPI.search(searchStr).then(books => {
+        this.setState((state, props) => {
+          let updatedBooks = books;
 
-        if (!updatedBooks || 'error' in updatedBooks) {
-          // just clear out books if error
-          updatedBooks = [];
-        } else {
-          // use internal state to update the shelves of the books from search results
-          for(let i=0; i<updatedBooks.length; i++) {
-            const id = updatedBooks[i].id;
-            const shelf = this.getCurrentBookShelf(id);
+          if (!updatedBooks || 'error' in updatedBooks) {
+            // just clear out books if error
+            updatedBooks = [];
+          } else {
+            // use internal state to update the shelves of the books from search results
+            for (let i = 0; i < updatedBooks.length; i++) {
+              const id = updatedBooks[i].id;
+              const shelf = this.getCurrentBookShelf(id);
 
-            if (shelf !== books[i].shelf) {
-              console.log("###handleSearchBooks - book: ", updatedBooks[i]);
-              console.log("###handleSearchBooks - ", updatedBooks[i].title);
-              console.log("###handleSearchBooks - shelf: ", shelf, updatedBooks[i].shelf);
+              if (shelf !== books[i].shelf) {
+                console.log("###handleSearchBooks - book: ", updatedBooks[i]);
+                console.log("###handleSearchBooks - ", updatedBooks[i].title);
+                console.log("###handleSearchBooks - shelf: ", shelf, updatedBooks[i].shelf);
 
-              updatedBooks[i].shelf = shelf;
-              updatedBooks[i].updatedByHandleSearchBooks = true;
+                updatedBooks[i].shelf = shelf;
+                updatedBooks[i].updatedByHandleSearchBooks = true;
+              }
             }
           }
-        }
 
-        console.log("###handleSearchBooks - updatedBooks: ", updatedBooks);
+          console.log("###handleSearchBooks - searchStr: ", this.state.searchStr);
+          console.log("###handleSearchBooks - updatedBooks: ", updatedBooks);
 
-        return {
-          searchStr: searchStr,
-          searchBooks: updatedBooks,
-        };
+          return {
+            searchBooks: updatedBooks,
+          };
+        });
       });
-    });
+    }
+
+    // Set searchStr in state first then do the api call for the book search.
+    // This will prevent lagging with typing in the search input.
+    this.updateSearchStr(searchStr, updateSearchBooks);
   }
 
   handleBookChange = (id, shelf) => {
