@@ -73,7 +73,9 @@ class BooksApp extends React.Component {
     },
   }
 
-  handleShowSearchPage = () => this.setState({ showSearchPage: false })
+  handleCloseSearchPage = () => this.setState({ showSearchPage: false })
+
+  handleAddBook = () => this.setState({ showSearchPage: true });
 
   componentDidMount() {
     BooksAPI.getAll().then(response => {
@@ -87,9 +89,9 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchPage handleShowSearchPage={this.handleShowSearchPage} />
+          <SearchPage handleCloseSearchPage={this.handleCloseSearchPage} />
         ) : (
-            <ListBooks bookCollection={this.state.bookCollection}/>
+            <ListBooks bookCollection={this.state.bookCollection} handleAddBook={this.handleAddBook}/>
           )}
       </div>
     )

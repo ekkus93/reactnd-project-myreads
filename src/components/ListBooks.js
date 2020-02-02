@@ -4,7 +4,7 @@ import '../App.css'
 
 class ListBooks extends Component {
     render() {
-        const {bookCollection} = this.props;
+        const {bookCollection, handleAddBook} = this.props;
 
         return (
             <div className="list-books">
@@ -13,7 +13,7 @@ class ListBooks extends Component {
                 </div>
                 <ListBooksContent bookCollection={bookCollection}/>
                 <div className="open-search">
-                    <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+                    <button onClick={handleAddBook}>Add a book</button>
                 </div>
             </div>
         );

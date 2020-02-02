@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Book from './Book'
+import BooksGrid from './BooksGrid'
 import '../App.css'
 
 class Bookshelf extends Component {
@@ -11,17 +11,7 @@ class Bookshelf extends Component {
             <div className="bookshelf">
                 <h2 className="bookshelf-title">{title}</h2>
                 <div className="bookshelf-books">
-                    <ol className="books-grid">
-                        { books.map( (book) => {
-                            const key = (!book.id) ? book.title : book.id;
-                            return (
-                                <li key={key}>
-                                    <Book {...book}/>
-                                </li>
-                                );
-                            })
-                        }
-                    </ol>
+                    <BooksGrid books={books}/>
                 </div>
             </div>
         );
