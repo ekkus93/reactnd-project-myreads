@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import BookshelfChanger from './BookshelfChanger'
+import { BookshelfChanger } from './BookshelfChanger'
 import '../App.css'
 
 class Book extends Component {
@@ -13,23 +13,18 @@ class Book extends Component {
 
     render() {
         const { id, title, authors, shelf, handleBookChange } = this.props;
-        //console.log("###Book - handleBookChange: ", handleBookChange);
+
+        // deal with multiple authors
         const author = authors ? authors.join(", ") : "";
+
         const backgroundImage = (this.props.imageLinks && this.props.imageLinks.thumbnail) ? this.props.imageLinks.thumbnail : "";
 
         let backgroundImageVal = null;
-        if (backgroundImage === "") {
-            console.log("###Book: props: ", this.props);
-            console.log("###Book - imageLinks: ", this.props.imageLinks);
-        } else {
+        if (backgroundImage !== "") {
             backgroundImageVal = 'url("' + backgroundImage + '")';
         }
 
         const bookCoverStyle = {
-            /*
-            width: width,
-            height: height,
-            */
             width: 128,
             height: 193,
             backgroundImage: backgroundImageVal,

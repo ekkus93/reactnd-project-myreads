@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchPage from './components/SearchPage'
 import ListBooks from './components/ListBooks'
+import {validShelves} from './components/BookshelfChanger'
 
 class BooksApp extends React.Component {
   state = {
@@ -30,18 +31,55 @@ class BooksApp extends React.Component {
 
   handleAddBook = () => this.setState({ showSearchPage: true });
 
+  getCurrentBookShelf = (id) => {
+    const bookCollectionKeys = validShelves.filter(shelf => shelf !== 'none');
+
+    for(let i=0; i<bookCollectionKeys.length; i++) {
+      const key = bookCollectionKeys[i];
+      const currBookCollection = this.state.bookCollection[key];
+
+      const filteredBooks = currBookCollection.filter(book => book.id === id);
+      if (filteredBooks !== null && filteredBooks.length > 0) {
+        return key;
+      }
+    }
+
+    return "none";
+  }
+
   handleSearchBooks = (event) => {
     const searchStr = event.target.value;
 
     BooksAPI.search(searchStr).then(books => {
-      if (!books || 'error' in books) {
-        // just clear out books if error
-        books = [];
-      }
+      this.setState((state, props) => {
+        let updatedBooks = books;
 
-      this.setState({
-        searchStr: searchStr,
-        searchBooks: books,
+        if (!updatedBooks || 'error' in updatedBooks) {
+          // just clear out books if error
+          updatedBooks = [];
+        } else {
+          // use internal state to update the shelves of the books from search results
+          for(let i=0; i<updatedBooks.length; i++) {
+            const id = updatedBooks[i].id;
+            const shelf = this.getCurrentBookShelf(id);
+
+            if (shelf !== books[i].shelf) {
+              console.log("###handleSearchBooks - book: ", updatedBooks[i]);
+              console.log("###handleSearchBooks - ", updatedBooks[i].title);
+              console.log("###handleSearchBooks - shelf: ", shelf, updatedBooks[i].shelf);
+
+              updatedBooks[i].shelf = shelf;
+              updatedBooks[i].updatedByHandleSearchBooks = true;
+            }
+          }
+        }
+
+        console.log("###handleSearchBooks - updatedBooks: ", updatedBooks);
+
+        return {
+          searchStr: searchStr,
+          searchBooks: updatedBooks,
+        };
       });
     });
   }

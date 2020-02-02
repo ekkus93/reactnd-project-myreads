@@ -19,6 +19,7 @@ class BookshelfChanger extends Component {
         //console.log("###BookshelfChanger - props: ", this.props);
 
         let { shelf } = this.props;
+
         if (!validShelves.includes(shelf)) {
             shelf = "none";
         }
@@ -37,4 +38,4 @@ class BookshelfChanger extends Component {
     }
 }
 
-export default BookshelfChanger;
+export { BookshelfChanger, validShelves };
