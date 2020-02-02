@@ -4,11 +4,12 @@ import '../App.css'
 
 class BooksGrid extends Component {
     render() {
-        const {books} = this.props;
+        const { books } = this.props;
+        console.log("###BooksGrid - books: ", books);
 
         return (
             <ol className="books-grid">
-                {books.map((book) => {
+                {books && books.map((book) => {
                     const key = (!book.id) ? book.title : book.id;
                     return (
                         <li key={key}>
@@ -18,6 +19,7 @@ class BooksGrid extends Component {
                 })
                 }
             </ol>
+
         );
     }
 }
