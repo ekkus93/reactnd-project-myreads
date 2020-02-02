@@ -4,7 +4,7 @@ import '../App.css'
 
 class SearchPage extends Component {
   render() {
-    const { searchStr, books, handleCloseSearchPage, handleSearchBooks } = this.props;
+    const { searchStr, books, handleCloseSearchPage, handleSearchBooks, handleBookChange } = this.props;
 
     return (
       <div className="search-books">
@@ -24,7 +24,7 @@ class SearchPage extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          <BooksGrid books={books}/>
+          <BooksGrid books={books} handleBookChange={handleBookChange}/>
         </div>
       </div>
     );

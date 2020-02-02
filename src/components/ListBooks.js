@@ -4,14 +4,14 @@ import '../App.css'
 
 class ListBooks extends Component {
     render() {
-        const {bookCollection, handleAddBook} = this.props;
+        const {bookCollection, handleAddBook, handleBookChange} = this.props;
 
         return (
             <div className="list-books">
                 <div className="list-books-title">
                     <h1>MyReads</h1>
                 </div>
-                <ListBooksContent bookCollection={bookCollection}/>
+                <ListBooksContent bookCollection={bookCollection} handleBookChange={handleBookChange}/>
                 <div className="open-search">
                     <button onClick={handleAddBook}>Add a book</button>
                 </div>

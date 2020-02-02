@@ -4,16 +4,16 @@ import '../App.css'
 
 class BooksGrid extends Component {
     render() {
-        const { books } = this.props;
-        console.log("###BooksGrid - books: ", books);
+        const { books, shelf, handleBookChange } = this.props;
+        //console.log("###BooksGrid - books: ", books);
+        //console.log("###BooksGrid - handleBookChange: ", handleBookChange);
 
         return (
             <ol className="books-grid">
                 {books && books.map((book) => {
-                    const key = (!book.id) ? book.title : book.id;
                     return (
-                        <li key={key}>
-                            <Book {...book} />
+                        <li key={book.id}>
+                            <Book {...book} shelf={shelf} handleBookChange={handleBookChange}/>
                         </li>
                     );
                 })
