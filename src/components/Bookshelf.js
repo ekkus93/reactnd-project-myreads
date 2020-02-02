@@ -4,7 +4,7 @@ import '../App.css'
 
 class Bookshelf extends Component {
     render() {
-        console.log("###Bookshelf");
+        console.log("###Bookshelf1");
         const { title, books } = this.props;
 
         return (
@@ -12,7 +12,15 @@ class Bookshelf extends Component {
                 <h2 className="bookshelf-title">{title}</h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
-                        { books.map( book => (<Book {...book}/>) ) }
+                        { books.map( (book) => {
+                            const key = (!book.id) ? book.title : book.id;
+                            return (
+                                <li key={key}>
+                                    <Book {...book}/>
+                                </li>
+                                );
+                            })
+                        }
                     </ol>
                 </div>
             </div>
