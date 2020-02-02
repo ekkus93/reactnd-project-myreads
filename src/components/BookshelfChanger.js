@@ -4,13 +4,13 @@ import '../App.css'
 const validShelves = ["wantToRead", "currentlyReading", "read", "none"];
 
 class BookshelfChanger extends Component {
-
-
-    handleBookChange = (event) => {
+    handleBookChangeInternal = (event) => {
+        const handleBookChange = this.props.handleBookChange;
         const shelf = event.target.value;
 
         if (validShelves.includes(shelf)) {
-            this.props.handleBookChange(this.props.id, shelf);
+            // ignore "move"
+            handleBookChange(this.props.id, shelf);
         }
     }
 
@@ -26,7 +26,7 @@ class BookshelfChanger extends Component {
 
         return (
             <div className="book-shelf-changer">
-                <select value={shelf} onChange={this.handleBookChange}>
+                <select value={shelf} onChange={this.handleBookChangeInternal}>
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
