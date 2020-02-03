@@ -3,14 +3,6 @@ import { BookshelfChanger } from './BookshelfChanger'
 import '../App.css'
 
 class Book extends Component {
-  handleBookChange = (event) => {
-    const changeVal = event.target.value;
-
-    if (changeVal !== 'move') {
-      this.handleBookChange(this.props.id, changeVal);
-    }
-  }
-
   render() {
     const { id, title, authors, shelf, handleBookChange } = this.props;
 

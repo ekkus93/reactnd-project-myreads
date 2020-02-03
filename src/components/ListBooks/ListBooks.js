@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import ListBooksContent from './ListBooksContent'
+import ListBooksContent from '../ListBooksContent/'
 import { Link } from 'react-router-dom'
-import '../App.css'
+import '../../App.css'
 
 class ListBooks extends Component {
   componentDidMount = () => {
@@ -10,16 +10,12 @@ class ListBooks extends Component {
   }
 
   render() {
-    const { bookCollection, handleBookChange } = this.props;
-
     return (
       <div className="list-books">
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
-        <ListBooksContent
-          bookCollection={bookCollection}
-          handleBookChange={handleBookChange} />
+        <ListBooksContent />
         <div className="open-search">
           <Link
             to='/search'

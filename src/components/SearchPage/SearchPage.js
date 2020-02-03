@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import SearchBooksBar from './SearchBooksBar'
-import SearchBookResults from './SearchBooksResults'
-import '../App.css'
+import SearchBooksBar from '../SearchBooksBar'
+import SearchBookResults from '../SearchBooksResults'
+import '../../App.css'
 
 class SearchPage extends Component {
   render() {

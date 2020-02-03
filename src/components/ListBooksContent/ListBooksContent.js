@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Bookshelf from './Bookshelf'
-import '../App.css'
+import Bookshelf from '../Bookshelf'
+import '../../App.css'
 
 class ListBooksContent extends Component {
     render() {
