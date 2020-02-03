@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import BooksGrid from '../BooksGrid'
 import '../../App.css'
 
@@ -14,6 +15,10 @@ class SearchBooksResults extends Component {
       </div>
     );
   }
+}
+
+SearchBooksResults.propTypes = {
+  books: PropTypes.array,
 }
 
 export default SearchBooksResults;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import BookshelfChanger from '../BookshelfChanger/'
+import PropTypes from 'prop-types'
 import '../../App.css'
 
 class Book extends Component {
@@ -39,5 +40,13 @@ class Book extends Component {
     );
   }
 }
+
+Book.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  authors: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  shelf: PropTypes.string,
+  imageLinks: PropTypes.object,
+};
 
 export default Book;

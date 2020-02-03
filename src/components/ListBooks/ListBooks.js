@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import ListBooksContent from '../ListBooksContent/'
 import { Link } from 'react-router-dom'
 import '../../App.css'
@@ -25,6 +26,10 @@ class ListBooks extends Component {
       </div>
     );
   }
+}
+
+ListBooks.propTypes = {
+  clearSearch: PropTypes.func.isRequired,
 }
 
 export default ListBooks;

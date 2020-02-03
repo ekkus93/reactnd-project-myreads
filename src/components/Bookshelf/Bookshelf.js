@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import BooksGrid from '../BooksGrid/'
 import '../../App.css'
 
@@ -20,6 +21,12 @@ class Bookshelf extends Component {
       </div>
     );
   }
+}
+
+Bookshelf.propTypes = {
+  title: PropTypes.string.isRequired,
+  books: PropTypes.array,
+  shelf: PropTypes.string,
 }
 
 export default Bookshelf;

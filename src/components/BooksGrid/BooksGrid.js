@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Book from '../Book/'
 import '../../App.css'
 
@@ -28,6 +29,11 @@ class BooksGrid extends Component {
 
     );
   }
+}
+
+BooksGrid.propTypes = {
+  books: PropTypes.array,
+  shelf: PropTypes.string,
 }
 
 export default BooksGrid;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import SearchBooksBar from '../SearchBooksBar/'
 import SearchBookResults from '../SearchBooksResults/'
 import '../../App.css'
@@ -16,6 +17,10 @@ class SearchPage extends Component {
       </div>
     );
   }
+}
+
+SearchPage.propTypes = {
+  books: PropTypes.array,
 }
 
 export default SearchPage;

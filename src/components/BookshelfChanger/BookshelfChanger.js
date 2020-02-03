@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import validShelves from '../../constants'
 import '../../App.css'
 
@@ -52,6 +53,11 @@ class BookshelfChanger extends Component {
       );
     }
   }
+}
+
+BookshelfChanger.propTypes = {
+  id: PropTypes.string.isRequired,
+  handleBookChange: PropTypes.func.isRequired,
 }
 
 export default BookshelfChanger;
