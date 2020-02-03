@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { BookshelfChanger } from './BookshelfChanger'
-import '../App.css'
+import BookshelfChanger from '../BookshelfChanger/'
+import '../../App.css'
 
 class Book extends Component {
   render() {
-    const { id, title, authors, shelf, handleBookChange } = this.props;
+    const { id, title, authors, shelf } = this.props;
 
     // deal with multiple authors
     const author = authors ? authors.join(", ") : "";
@@ -31,7 +31,6 @@ class Book extends Component {
           <BookshelfChanger
             id={id}
             shelf={shelf}
-            handleBookChange={handleBookChange}
           />
         </div>
         <div className="book-title">{title}</div>

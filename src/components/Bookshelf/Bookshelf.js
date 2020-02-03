@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import BooksGrid from './BooksGrid'
-import '../App.css'
+import BooksGrid from '../BooksGrid/'
+import '../../App.css'
 
 class Bookshelf extends Component {
   render() {
     //console.log("###Bookshelf");
-    const { title, books, shelf, handleBookChange } = this.props;
+    const { title, books, shelf } = this.props;
     //console.log("###Bookshelf - handleBookChange: ", handleBookChange);
 
     return (
@@ -15,7 +15,6 @@ class Bookshelf extends Component {
           <BooksGrid
             books={books}
             shelf={shelf}
-            handleBookChange={handleBookChange}
           />
         </div>
       </div>

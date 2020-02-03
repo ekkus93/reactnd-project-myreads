@@ -1,21 +1,17 @@
 import React, { Component } from 'react'
-import SearchBooksBar from '../SearchBooksBar'
-import SearchBookResults from '../SearchBooksResults'
+import SearchBooksBar from '../SearchBooksBar/'
+import SearchBookResults from '../SearchBooksResults/'
 import '../../App.css'
 
 class SearchPage extends Component {
   render() {
-    const { query, books, handleSearchBooks, handleBookChange } = this.props;
+    const { books } = this.props;
 
     return (
       <div className="search-books">
-        <SearchBooksBar
-          query={query}
-          handleSearchBooks={handleSearchBooks}
-        />
+        <SearchBooksBar />
         <SearchBookResults
           books={books}
-          handleBookChange={handleBookChange}
         />
       </div>
     );

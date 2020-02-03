@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import Book from './Book'
-import '../App.css'
+import Book from '../Book/'
+import '../../App.css'
 
 class BooksGrid extends Component {
   render() {
-    const { books, handleBookChange } = this.props;
+    const { books } = this.props;
     let { shelf } = this.props;
-
-    //console.log("###BooksGrid - books: ", books);
-    //console.log("###BooksGrid - handleBookChange: ", handleBookChange);
 
     return (
       <ol className="books-grid">
@@ -22,7 +19,6 @@ class BooksGrid extends Component {
               <Book
                 {...book}
                 shelf={shelf}
-                handleBookChange={handleBookChange}
               />
             </li>
           );

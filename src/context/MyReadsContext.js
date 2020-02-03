@@ -1,6 +1,6 @@
 import React, { createContext, Component } from "react"
 import * as BooksAPI from '../BooksAPI'
-import {validShelves} from '../components/BookshelfChanger'
+import validShelves from '../constants'
 
 export const MyReadsContext = createContext();
 

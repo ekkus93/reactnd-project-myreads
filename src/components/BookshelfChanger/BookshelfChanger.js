@@ -1,27 +1,26 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import '../App.css'
-
-const validShelves = ["wantToRead", "currentlyReading", "read", "none"];
+import validShelves from '../../constants'
+import '../../App.css'
 
 class BookshelfChanger extends Component {
   state = {
     toListBooks: false,
   }
 
-  setToListBookstToTrue = () => {
+  setToListBooksToTrue = () => {
     this.setState({
       toListBooks: true,
     }, );
   }
 
   handleBookChangeInternal = (event) => {
-    const { handleBookChange } = this.props;
+    const { id, handleBookChange } = this.props;
     const shelf = event.target.value;
 
     if (validShelves.includes(shelf)) {
       // ignore "move"
-      handleBookChange(this.props.id, shelf, this.setToListBookstToTrue);
+      handleBookChange(id, shelf, this.setToListBooksToTrue);
     }
   }
 
@@ -55,4 +54,4 @@ class BookshelfChanger extends Component {
   }
 }
 
-export { BookshelfChanger, validShelves };
+export default BookshelfChanger;
