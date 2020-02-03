@@ -16,12 +16,17 @@ class BookshelfChanger extends Component {
   }
 
   handleBookChangeInternal = (event) => {
-    const { id, handleBookChange } = this.props;
+    const { id, currPage, handleBookChange } = this.props;
     const shelf = event.target.value;
 
     if (validShelves.includes(shelf)) {
       // ignore "move"
-      handleBookChange(id, shelf, this.setToListBooksToTrue);
+      // TODO: change to const
+      if (currPage === "SearchPage") {
+        handleBookChange(id, shelf, this.setToListBooksToTrue);
+      } else {
+        handleBookChange(id, shelf, null);
+      }
     }
   }
 

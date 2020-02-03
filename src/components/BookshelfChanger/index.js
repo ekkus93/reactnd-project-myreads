@@ -5,9 +5,10 @@ import '../../App.css'
 
 export default (props) => (
   <MyReadsContext.Consumer>
-    {({ handleBookChange }) =>
+    {({ currPage, handleBookChange }) =>
       <BookshelfChanger
         {...props}
+        currPage={currPage}
         handleBookChange={handleBookChange}
       />
     }

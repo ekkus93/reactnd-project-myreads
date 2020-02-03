@@ -5,6 +5,13 @@ import SearchBookResults from '../SearchBooksResults/'
 import '../../App.css'
 
 class SearchPage extends Component {
+  componentDidMount = () => {
+    const { setCurrPage } = this.props;
+
+    // TODO: change to const
+    setCurrPage("SearchPage");
+  }
+
   render() {
     const { books } = this.props;
 

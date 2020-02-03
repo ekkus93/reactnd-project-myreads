@@ -13,6 +13,7 @@ export class MyReadsProvider extends Component {
       wantToRead: [],
       read: [],
     },
+    currPage: "ListBooks",
   }
 
   updateQuery = (query, callback) => {
@@ -107,6 +108,8 @@ export class MyReadsProvider extends Component {
     });
   }
 
+  setCurrPage = (currPage) => this.setState({ currPage })
+
   render() {
     return (
       <MyReadsContext.Provider
@@ -118,6 +121,7 @@ export class MyReadsProvider extends Component {
           clearSearch: this.clearSearch,
           getCurrentBookShelf: this.getCurrentBookShelf,
           updateBookCollections: this.updateBookCollections,
+          setCurrPage: this.setCurrPage,
         }}
       >
         {this.props.children}

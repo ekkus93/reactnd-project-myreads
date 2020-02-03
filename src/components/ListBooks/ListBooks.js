@@ -6,8 +6,10 @@ import '../../App.css'
 
 class ListBooks extends Component {
   componentDidMount = () => {
+    const { clearSearch, setCurrPage } = this.props;
+
     // if the user is coming from the search back to list books page, make sure that the search is cleared
-    this.props.clearSearch();
+    clearSearch(() => setCurrPage("ListBooks")); // TODO: change to consts
   }
 
   render() {
@@ -29,6 +31,7 @@ class ListBooks extends Component {
 }
 
 ListBooks.propTypes = {
+  setCurrPage: PropTypes.func.isRequired,
   clearSearch: PropTypes.func.isRequired,
 }
 
