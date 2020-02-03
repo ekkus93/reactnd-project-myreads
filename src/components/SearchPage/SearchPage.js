@@ -8,7 +8,6 @@ class SearchPage extends Component {
   componentDidMount = () => {
     const { setCurrPage } = this.props;
 
-    // TODO: change to const
     setCurrPage("SearchPage");
   }
 

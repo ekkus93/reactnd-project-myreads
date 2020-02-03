@@ -21,7 +21,6 @@ class BookshelfChanger extends Component {
 
     if (validShelves.includes(shelf)) {
       // ignore "move"
-      // TODO: change to const
       if (currPage === "SearchPage") {
         handleBookChange(id, shelf, this.setToListBooksToTrue);
       } else {
@@ -31,9 +30,6 @@ class BookshelfChanger extends Component {
   }
 
   render() {
-    //console.log("###BookshelfChanger - this: ", this);
-    //console.log("###BookshelfChanger - props: ", this.props);
-
     if (this.state.toListBooks) {
       return (
         <Redirect toListBooks={this.state.toListBooks} to='/' />

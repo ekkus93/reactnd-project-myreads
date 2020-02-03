@@ -9,7 +9,7 @@ class ListBooks extends Component {
     const { clearSearch, setCurrPage } = this.props;
 
     // if the user is coming from the search back to list books page, make sure that the search is cleared
-    clearSearch(() => setCurrPage("ListBooks")); // TODO: change to consts
+    clearSearch(() => setCurrPage("ListBooks"));
   }
 
   render() {

@@ -38,18 +38,11 @@ export class MyReadsProvider extends Component {
               const shelf = this.getCurrentBookShelf(id);
 
               if (shelf !== books[i].shelf) {
-                console.log("###handleSearchBooks - book: ", updatedBooks[i]);
-                console.log("###handleSearchBooks - ", updatedBooks[i].title);
-                console.log("###handleSearchBooks - shelf: ", shelf, updatedBooks[i].shelf);
-
                 updatedBooks[i].shelf = shelf;
                 updatedBooks[i].updatedByHandleSearchBooks = true;
               }
             }
           }
-
-          console.log("###handleSearchBooks - query: ", this.state.query);
-          console.log("###handleSearchBooks - updatedBooks: ", updatedBooks);
 
           return {
             searchBooks: updatedBooks,

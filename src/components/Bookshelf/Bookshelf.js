@@ -5,9 +5,7 @@ import '../../App.css'
 
 class Bookshelf extends Component {
   render() {
-    //console.log("###Bookshelf");
     const { title, books, shelf } = this.props;
-    //console.log("###Bookshelf - handleBookChange: ", handleBookChange);
 
     return (
       <div className="bookshelf">

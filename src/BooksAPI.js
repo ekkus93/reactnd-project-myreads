@@ -33,8 +33,6 @@ export const update = (book, shelf) =>
   }).then(res => res.json())
 
 export const search = (query) => {
-  console.log("###search - query: ", JSON.stringify({ query }))
-
   const result = fetch(`${api}/search`, {
     method: 'POST',
     headers: {
