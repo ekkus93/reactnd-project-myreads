@@ -5,7 +5,7 @@ import '../../App.css'
 
 class Bookshelf extends Component {
   render() {
-    const { title, books, shelf } = this.props;
+    const { title, books } = this.props;
 
     return (
       <div className="bookshelf">
@@ -13,7 +13,6 @@ class Bookshelf extends Component {
         <div className="bookshelf-books">
           <BooksGrid
             books={books}
-            shelf={shelf}
           />
         </div>
       </div>
@@ -24,7 +23,6 @@ class Bookshelf extends Component {
 Bookshelf.propTypes = {
   title: PropTypes.string.isRequired,
   books: PropTypes.array,
-  shelf: PropTypes.string,
 }
 
 export default Bookshelf;

@@ -5,12 +5,12 @@ import '../../App.css'
 
 class Book extends Component {
   render() {
-    const { id, title, authors, shelf } = this.props;
+    const { id, title, authors, shelf, imageLinks } = this.props;
 
     // deal with multiple authors
     const author = authors ? authors.join(", ") : "";
 
-    const backgroundImage = (this.props.imageLinks && this.props.imageLinks.thumbnail) ? this.props.imageLinks.thumbnail : "";
+    const backgroundImage = (imageLinks && imageLinks.thumbnail) ? imageLinks.thumbnail : "";
 
     let backgroundImageVal = null;
     if (backgroundImage !== "") {

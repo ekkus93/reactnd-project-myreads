@@ -6,9 +6,9 @@ import '../../App.css'
 
 class SearchPage extends Component {
   componentDidMount = () => {
-    const { setCurrPage } = this.props;
+    const { setCurrPage, updateBookCollections } = this.props;
 
-    setCurrPage("SearchPage");
+    setCurrPage("SearchPage", updateBookCollections);
   }
 
   render() {
@@ -27,6 +27,7 @@ class SearchPage extends Component {
 
 SearchPage.propTypes = {
   books: PropTypes.array,
+  updateBookCollections: PropTypes.func.isRequired,
 }
 
 export default SearchPage;

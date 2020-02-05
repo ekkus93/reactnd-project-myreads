@@ -5,10 +5,6 @@ import SearchPage from './components/SearchPage/'
 import ListBooks from './components/ListBooks/'
 
 class BooksApp extends React.Component {
-  componentDidMount() {
-    this.props.updateBookCollections();
-  }
-
   render() {
     return (
       <div className="app">

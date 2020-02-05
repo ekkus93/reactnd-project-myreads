@@ -16,67 +16,35 @@ export class MyReadsProvider extends Component {
     currPage: "ListBooks",
   }
 
+  constructor(props) {
+    super(props)
+
+    this._setState = this.setState;
+    this.setState = (partialState, callback) => {
+      const _callback = () => {
+        if (callback) {
+          callback(() => {
+            console.log("###after setState", this.state);
+          })
+        } else {
+          console.log("###after setState", this.state);
+        }
+      }
+
+      return this._setState(partialState, _callback);
+    }
+  }
+
   updateQuery = (query, callback) => {
     this.setState({query}, callback);
   }
 
-  handleSearchBooks = (event) => {
-    const query = event.target.value;
-
-    const updateSearchBooks = () => {
-      BooksAPI.search(query).then(books => {
-        this.setState((state, props) => {
-          let updatedBooks = books;
-
-          if (!updatedBooks || 'error' in updatedBooks) {
-            // just clear out books if error
-            updatedBooks = [];
-          } else {
-            // use internal state to update the shelves of the books from search results
-            for (let i = 0; i < updatedBooks.length; i++) {
-              const id = updatedBooks[i].id;
-              const shelf = this.getCurrentBookShelf(id);
-
-              if (shelf !== books[i].shelf) {
-                updatedBooks[i].shelf = shelf;
-                updatedBooks[i].updatedByHandleSearchBooks = true;
-              }
-            }
-          }
-
-          return {
-            searchBooks: updatedBooks,
-          };
-        });
-      });
-    }
-
-    // Set query in state first then do the api call for the book search.
-    // This will prevent lagging with typing in the search input.
-    this.updateQuery(query, updateSearchBooks);
-  }
-
-  handleBookChange = (id, shelf, callback) => {
-    const book = {
-      id: id,
-    };
-
-    BooksAPI.update(book, shelf).then(() => this.updateBookCollections(callback));
-  }
-
-  clearSearch = (callback) => {
-    this.setState({
-      query: '',
-      searchBooks: [],
-    }, callback);
-  }
-
-  getCurrentBookShelf = (id) => {
+  getCurrentBookShelf = (bookCollection, id) => {
     const bookCollectionKeys = validShelves.filter(shelf => shelf !== 'none');
 
     for(let i=0; i<bookCollectionKeys.length; i++) {
       const key = bookCollectionKeys[i];
-      const currBookCollection = this.state.bookCollection[key];
+      const currBookCollection = bookCollection[key];
 
       const filteredBooks = currBookCollection.filter(book => book.id === id);
       if (filteredBooks !== null && filteredBooks.length > 0) {
@@ -87,21 +55,71 @@ export class MyReadsProvider extends Component {
     return "none";
   }
 
-  updateBookCollections = (callback=null) => {
-    BooksAPI.getAll().then((allBooks) => {
-      const bookCollection = {
-        currentlyReading: allBooks.filter(book => book.shelf === 'currentlyReading'),
-        wantToRead: allBooks.filter(book => book.shelf === 'wantToRead'),
-        read: allBooks.filter(book => book.shelf === 'read'),
-      };
+  getUpdatedSearchBookShelves = (bookCollection, searchBooks) => {
+    if (searchBooks) {
+      return searchBooks.map(searchBook => {
+        searchBook.shelf = this.getCurrentBookShelf(bookCollection, searchBook.id)
+        return searchBook;
+      });
+    } else {
+      return searchBooks;
+    }
+  }
 
-      this.setState({
-        bookCollection: bookCollection
-      }, callback);
+  handleSearchBooks = (event) => {
+    const query = event.target.value;
+
+    const updateSearchBooks = () => {
+      BooksAPI.search(query).then(books => {
+        this.setState((state, props) => {
+          const newSearchBooks = {
+            searchBooks: this.getUpdatedSearchBookShelves(state.bookCollection, books)
+          };
+
+          return newSearchBooks;
+        });
+      });
+    }
+
+    // Set query in state first then do the api call for the book search.
+    // This will prevent lagging with typing in the search input.
+    this.updateQuery(query, updateSearchBooks);
+  }
+
+  handleBookChange = (id, shelf) => {
+    const book = {
+      id: id,
+    };
+
+    BooksAPI.update(book, shelf).then(this.updateBookCollections);
+  }
+
+  clearSearch = (callback) => {
+    this.setState({
+      query: '',
+      searchBooks: [],
+    }, callback);
+  }
+
+  updateBookCollections = () => {
+    BooksAPI.getAll().then((allBooks) => {
+      this.setState((state, props) => {
+        const bookCollection = {
+          currentlyReading: allBooks.filter(book => book.shelf === 'currentlyReading'),
+          wantToRead: allBooks.filter(book => book.shelf === 'wantToRead'),
+          read: allBooks.filter(book => book.shelf === 'read'),
+        };
+        const searchBooks = this.getUpdatedSearchBookShelves(bookCollection, state.searchBooks);
+
+        return {
+          bookCollection: bookCollection,
+          searchBooks: searchBooks,
+        };
+      });
     });
   }
 
-  setCurrPage = (currPage) => this.setState({ currPage })
+  setCurrPage = (currPage, callback=null) => this.setState({ currPage }, callback)
 
   render() {
     return (

@@ -4,13 +4,12 @@ import { MyReadsContext } from '../../context/MyReadsContext'
 
 export default (props) => (
   <MyReadsContext.Consumer>
-    {({ bookCollection, handleBookChange, clearSearch, setCurrPage }) =>
+    {({ clearSearch, setCurrPage, updateBookCollections }) =>
       <ListBooks
         {...props}
-        bookCollection={bookCollection}
-        handleBookChange={handleBookChange}
         clearSearch={clearSearch}
         setCurrPage={setCurrPage}
+        updateBookCollections={updateBookCollections}
       />
     }
   </MyReadsContext.Consumer>
