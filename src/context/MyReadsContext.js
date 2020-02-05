@@ -57,6 +57,9 @@ export class MyReadsProvider extends Component {
 
   getUpdatedSearchBookShelves = (bookCollection, searchBooks) => {
     if (searchBooks) {
+      if ("error" in searchBooks) {
+        return [];
+      }
       return searchBooks.map(searchBook => {
         searchBook.shelf = this.getCurrentBookShelf(bookCollection, searchBook.id)
         return searchBook;
