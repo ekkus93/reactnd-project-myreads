@@ -16,25 +16,6 @@ export class MyReadsProvider extends Component {
     currPage: "ListBooks",
   }
 
-  constructor(props) {
-    super(props)
-
-    this._setState = this.setState;
-    this.setState = (partialState, callback) => {
-      const _callback = () => {
-        if (callback) {
-          callback(() => {
-            console.log("###after setState", this.state);
-          })
-        } else {
-          console.log("###after setState", this.state);
-        }
-      }
-
-      return this._setState(partialState, _callback);
-    }
-  }
-
   updateQuery = (query, callback) => {
     this.setState({query}, callback);
   }
