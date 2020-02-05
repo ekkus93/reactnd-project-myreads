@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import validShelves from '../../constants'
+import { validShelves } from '../../constants'
 import '../../App.css'
 
 class BookshelfChanger extends Component {

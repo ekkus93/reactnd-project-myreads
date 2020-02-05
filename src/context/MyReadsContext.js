@@ -1,6 +1,6 @@
 import React, { createContext, Component } from "react"
 import * as BooksAPI from '../BooksAPI'
-import validShelves from '../constants'
+import { visibleShelves } from '../constants'
 
 export const MyReadsContext = createContext();
 
@@ -21,10 +21,8 @@ export class MyReadsProvider extends Component {
   }
 
   getCurrentBookShelf = (bookCollection, id) => {
-    const bookCollectionKeys = validShelves.filter(shelf => shelf !== 'none');
-
-    for(let i=0; i<bookCollectionKeys.length; i++) {
-      const key = bookCollectionKeys[i];
+    for(let i=0; i<visibleShelves.length; i++) {
+      const key = visibleShelves[i];
       const currBookCollection = bookCollection[key];
 
       const filteredBooks = currBookCollection.filter(book => book.id === id);
@@ -88,11 +86,18 @@ export class MyReadsProvider extends Component {
   updateBookCollections = () => {
     BooksAPI.getAll().then((allBooks) => {
       this.setState((state, props) => {
-        const bookCollection = {
-          currentlyReading: allBooks.filter(book => book.shelf === 'currentlyReading'),
-          wantToRead: allBooks.filter(book => book.shelf === 'wantToRead'),
-          read: allBooks.filter(book => book.shelf === 'read'),
+        let bookCollection = {
+          currentlyReading: [],
+          wantToRead: [],
+          read: [],
         };
+
+        if (allBooks) {
+          bookCollection.currentlyReading = allBooks.filter(book => book.shelf === 'currentlyReading');
+          bookCollection.wantToRead = allBooks.filter(book => book.shelf === 'wantToRead');
+          bookCollection.read = allBooks.filter(book => book.shelf === 'read');
+        }
+
         const searchBooks = this.getUpdatedSearchBookShelves(bookCollection, state.searchBooks);
 
         return {

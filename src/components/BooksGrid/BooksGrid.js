@@ -5,39 +5,27 @@ import '../../App.css'
 
 class BooksGrid extends Component {
   render() {
-    const { books } = this.props;
-    //let { shelf } = this.props;
+    let { books } = this.props;
+
+    if (books === undefined) {
+      return (null);
+    }
+
+    const bookElts = books.map(book => {
+      return (
+        <li key={book.id}>
+          <Book
+            {...book}
+            shelf={book.shelf}
+          />
+        </li>
+      );
+    });
 
     return (
       <ol className="books-grid">
-        {books && books.map((book) => {
-          return (
-            <li key={book.id}>
-              <Book
-                {...book}
-                shelf={book.shelf}
-              />
-            </li>
-          );
-
-          /*
-          if (!shelf) {
-            shelf = book.shelf;
-          }
-
-          return (
-            <li key={book.id}>
-              <Book
-                {...book}
-                shelf={shelf}
-              />
-            </li>
-          );
-          */
-        })
-        }
+        {bookElts}
       </ol>
-
     );
   }
 }
